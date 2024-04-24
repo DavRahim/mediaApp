@@ -6,14 +6,12 @@ import SearchInput from "../../components/SearchInput";
 import Trending from "../../components/Trending";
 import EmptyState from "../../components/EmptyState";
 import useAppwrite from "../../lib/useAppwrite";
-import { getAllPosts, signOut } from "../../lib/appwrite";
+import { getAllPosts, getLatestPosts, signOut } from "../../lib/appwrite";
 import VideoCard from "../../components/VideoCard";
 
 const Home = () => {
   const { data: posts, refetch } = useAppwrite(getAllPosts);
-  // const [ posts, refetch ] = useState([]);
-  // const { data: latestPosts } = useAppwrite(getLatestPosts);
-  console.log(posts);
+  const { data: latestPosts } = useAppwrite(getLatestPosts);
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -22,19 +20,6 @@ const Home = () => {
     await refetch();
     setRefreshing(false);
   };
-  
-  useEffect(()=> {
-    const fetchData = async () => {
-      try {
-        const response = await getAllPosts();
-        console.log(response, "response");
-        
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchData()
-  }, [])
 
   // one flatlist
   // with list header
@@ -53,8 +38,8 @@ const Home = () => {
             title={item.title}
             thumbnail={item.thumbnail}
             video={item.video}
-            creator={item.creator.username}
-            avatar={item.creator.avatar}
+            creator={item.creator?.username}
+            avatar={item.creator?.avatar}
           />
         )}
         ListHeaderComponent={() => (
@@ -85,7 +70,7 @@ const Home = () => {
                 Latest Videos
               </Text>
 
-              <Trending posts={ []} />
+              <Trending posts={latestPosts ?? []} />
             </View>
           </View>
         )}

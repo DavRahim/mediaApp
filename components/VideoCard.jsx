@@ -41,7 +41,7 @@ const VideoCard = ({ title, creator, avatar, thumbnail, video }) => {
             </View>
 
             {play ? (
-                <Video
+                <Video 
                     source={{ uri: video }}
                     className="w-full h-60 rounded-xl mt-3"
                     resizeMode={ResizeMode.CONTAIN}

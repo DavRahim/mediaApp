@@ -7,6 +7,7 @@ import {
     ImageBackground,
     TouchableOpacity,
 } from "react-native";
+import { icons } from "../constants";
 
 const zoomIn = {
     0: {
