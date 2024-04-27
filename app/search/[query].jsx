@@ -15,6 +15,7 @@ const Search = () => {
   useEffect(() => {
     refetch();
   }, [query]);
+  console.log("log");
 
   return (
     <SafeAreaView className="bg-primary h-full">
